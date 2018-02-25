@@ -35,8 +35,8 @@ def index():
 
 @app.route('/predict/',methods=['GET','POST'])
 def predict():
-	imgData = request.get_data()
-	convertImage(imgData)	
+	#imgData = request.get_data()
+	#convertImage(imgData)	
 	i=np.random.randint(10)
 	x = imread('output'+str(i)+'.png',mode='L')
 	
