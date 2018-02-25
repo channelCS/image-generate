@@ -1,5 +1,5 @@
 import os
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 #Define backend as tensorflow
 os.environ['KERAS_BACKEND']='tensorflow'
 #It is important to import keras after changing backend
