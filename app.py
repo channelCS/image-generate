@@ -21,11 +21,12 @@ app = Flask(__name__)
 global model, graph
 
 model, graph = init()
-
+i=np.random.randint(10)
+	
 def convertImage(imgData1):
 	imgstr = re.search(r'base64,(.*)',imgData1).group(1)
 	print(imgstr)
-	with open('input.png','wb') as output:
+	with open('output'+str(i)+'.png','wb') as output:
 		output.write(imgstr.decode('base64'))
 	
 
@@ -37,8 +38,8 @@ def index():
 def predict():
 	imgData = request.get_data()
 	convertImage(imgData)	
-	i=np.random.randint(10)
 	x = imread('output'+str(i)+'.png',mode='L')
+	
 	img_in = imresize(x,(28,14))
 	# inp=img_in[6:7]
 	# print img_in.shape
