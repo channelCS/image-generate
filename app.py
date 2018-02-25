@@ -12,7 +12,6 @@ import re
 from PIL import Image
 
 import sys 
-import os
 sys.path.append(os.path.abspath("./model"))
 from load import * 
 
@@ -49,26 +48,22 @@ def predict():
 	imgData = request.get_data()
 
 	convertImage(imgData)
-	print("debug")
+	
 	i=np.random.randint(10)
 	x = imread('output'+str(i)+'.png',mode='L')
-	print x.shape
 	img_in = imresize(x,(28,14))
 	# inp=img_in[6:7]
 	# print img_in.shape
 	img_in =img_in.reshape((1,392))
-	print("debug2")
+	
 	
 	with graph.as_default():
 		    img_inp = img_in.reshape((28,14))
-		    # img_inp = np.invert(img_inp)
-		    #img_inp  = np.invert(img_inp)
-		    #f, axarr = plt.subplots(1,2,sharey=False)
 		    pred = model.predict([img_in,np.zeros_like(img_in)])
 		    pred=np.array(pred[0])
 		    print pred.shape
 		    img_out = pred.reshape((28,14))
-		    print("Image")
+	
 		    # axarr[1].imshow(img_inp)
 		    # axarr[0].imshow(img)
 		    np.save('img_inp.npy',img_inp)
