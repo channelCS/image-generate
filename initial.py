@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 22 13:38:40 2018
-
-@author: gaurav
-"""
-
-# -*- coding: utf-8 -*-
-
-"""
 Created on Tue Mar 07 11:48:18 2017
-
 @author: Gaurav Bhatt
 Email - gauravbhatt.cs.iitr@gmail.com
+Updated on Thu Feb 22 13:38:40 2018
+@author: aditya
 """
 
 import sys
@@ -22,8 +15,6 @@ import numpy as np
 from sklearn import svm
 import keras.backend as K
 from keras.models import Model
-#from theano import tensor as T
-import matplotlib.pyplot as plt
 from keras.layers import Input, Merge
 from keras.engine.topology import Layer
 from sklearn.metrics import accuracy_score
@@ -157,22 +148,6 @@ def corr_loss(y_true, y_pred):
 def project(model,inp):
     m = model.predict([inp[0],inp[1]])
     return m[2]
-
-def reconstruct_from_left(model,inp):
-    img_inp = inp.reshape((28,14))
-    f, axarr = plt.subplots(1,2,sharey=False)
-    pred = model.predict([inp,np.zeros_like(inp)])
-    img = pred[0].reshape((28,14))
-    axarr[0].imshow(img_inp)
-    axarr[1].imshow(img)
-
-def reconstruct_from_right(model,inp):
-    img_inp = inp.reshape((28,14))
-    f, axarr = plt.subplots(1,2,sharey=False)
-    pred = model.predict([np.zeros_like(inp),inp])
-    img = pred[1].reshape((28,14))
-    axarr[1].imshow(img_inp)
-    axarr[0].imshow(img)
     
 def sum_corr(model):
     view1 = np.load(cfg.test_v1)
