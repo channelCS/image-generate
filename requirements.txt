@@ -6,3 +6,6 @@ numpy
 h5py
 pillow
 tensorflow
+scikit-learn
+scipy
+
