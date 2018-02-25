@@ -15,10 +15,6 @@ import sys
 sys.path.append(os.path.abspath("./model"))
 from load import * 
 
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib.dates import DateFormatter
-
 
 app = Flask(__name__)
 
@@ -31,12 +27,6 @@ def convertImage(imgData1):
 	print(imgstr)
 	with open('input.png','wb') as output:
 		output.write(imgstr.decode('base64'))
-
-def convertImage1(imgData1):
-	imgstr = re.search(r'base64,(.*)',imgData1).group(1)
-	print(imgstr)
-	with open('output.png','wb') as output:
-		output.write(imgstr.decode('base64'))
 	
 
 @app.route('/') 
@@ -46,9 +36,7 @@ def index():
 @app.route('/predict/',methods=['GET','POST'])
 def predict():
 	imgData = request.get_data()
-
-	convertImage(imgData)
-	
+	convertImage(imgData)	
 	i=np.random.randint(10)
 	x = imread('output'+str(i)+'.png',mode='L')
 	img_in = imresize(x,(28,14))
@@ -61,13 +49,11 @@ def predict():
 		    img_inp = img_in.reshape((28,14))
 		    pred = model.predict([img_in,np.zeros_like(img_in)])
 		    pred=np.array(pred[0])
-		    print pred.shape
 		    img_out = pred.reshape((28,14))
 	
 		    # axarr[1].imshow(img_inp)
 		    # axarr[0].imshow(img)
-		    np.save('img_inp.npy',img_inp)
-		    np.save('img_out.npy',img_out)
+		   
 		    imsave('./static/a.png', img_inp)
 		    imsave('./static/b.png', img_out)
 		    return ' '
@@ -79,10 +65,10 @@ def predict():
 
 if __name__ == "__main__":
 	#decide what port to run the app in
-	port = int(os.environ.get('PORT', 5000))
+	#port = int(os.environ.get('PORT', 5000))
 
 	#run the app locally on the givn port
-	app.run(host='0.0.0.0', port=port)
+	app.run(host='127.0.0.1', port=1245)
 
 
 
